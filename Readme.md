@@ -62,9 +62,11 @@ The Blog API is a robust backend solution for managing a blog platform. It suppo
 This project is licensed under the MIT License.
 
 #live link:
-
+github: https://github.com/ForidaParven/blog-project
 Admin: 
 "email": "hybui.kiuh@example.com",
 "password": "SecureP@ssw0rd"
 
 admin token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imh5YnVpLmtpdWhAZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzQ4MzE0NzAsImV4cCI6MTczNzQyMzQ3MH0.lEpxTbjQ8amY5RVR_NkFgoc0ncHCllyWURseso4wKUs
+
+user tokn: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG4uc21pdGhAZXhhbXBsZS5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTczNDkwODg3MCwiZXhwIjoxNzM3NTAwODcwfQ.xpFJMTCk1g2gSZ7X1H5ocgjBxE9aofrG1Y670JqcZ8A

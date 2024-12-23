@@ -18,13 +18,7 @@ import jwt from 'jsonwebtoken'
     throw new Error('This user is not found !')
   }
 
-  // checking if the user is inactive
-  // const statusCode = user?.statusCode
-
-  // if (statusCode === 'inactive') {
-  //   throw new Error('This user is blocked ! !')
-  // }
-
+  
   //checking if the password is correct
   const isPasswordMatched = await bcrypt.compare(
     payload?.password,

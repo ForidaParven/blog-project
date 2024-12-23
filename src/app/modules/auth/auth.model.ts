@@ -1,14 +1,9 @@
 
 import mongoose, { Schema, model } from 'mongoose';
-import { IAuth } from './auth.interface';
+import { ILoginUser } from './auth.interface';
 
-const AuthSchema = new Schema<IAuth>(
+const AuthSchema = new Schema<ILoginUser>(
   {
-    name: {
-      type: String,
-      required: true,
-      minlength: [3, "Name must be at least 3 characters long"],
-    },
     email: {
       type: String,
       required: true,
@@ -24,5 +19,5 @@ const AuthSchema = new Schema<IAuth>(
   { timestamps: true }
 );
 
-export const Auth = mongoose.model<IAuth>("Auth", AuthSchema);
+export const Auth = mongoose.model<ILoginUser>("Auth", AuthSchema);
 

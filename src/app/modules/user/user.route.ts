@@ -8,7 +8,7 @@ import auth from "../../../middleWare/auth"
 
 const userRouter = Router()
 
-userRouter.post('/create-admin', validate(userValidationSchema.loginValidation),userController.createUser)
+userRouter.post('/', validate(userValidationSchema.loginValidation),userController.createUser)
 userRouter.get('/:userId', userController.getSingleUser)
 userRouter.put('/:userId', userController.updateUser)
 userRouter.delete('/:userId', userController.deleteUser)
