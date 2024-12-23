@@ -31,13 +31,7 @@ const auth = (...requiredRoles: IUserRole[]) => {
     throw new Error('This user is not found !')
   }
 
-  // checking if the user is inactive
-//   const userStatus = user?.userStatus
-
-//   if (userStatus === 'inactive') {
-//     throw new Error('This user is blocked ! !')
-//   }
-
+  
     if (requiredRoles && !requiredRoles.includes(role)) {
       throw new Error(
         'You are not authorized',
