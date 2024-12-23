@@ -67,5 +67,5 @@ This project is licensed under the MIT License.
 # Admin: 
 "email": "hybui.kiuh@example.com",
 "password": "SecureP@ssw0rd"
-# Project Overview Video: 
-# Live Deployment Link (Server): 
+# Project Overview Video:https://drive.google.com/file/d/1xq0wmLEX3suQ5zX7i45-AyDPXOFSOv72/view?usp=sharing 
+# Live Deployment Link (Server):https://blog-assignment-liart.vercel.app
