@@ -5,7 +5,8 @@ import { Request, Response } from 'express';
 
 const blockUser = async (req: Request, res: Response) => {
         try {
-            const userId = req.user?.id
+            const userId = req.params.id;
+            console.log(userId)
            const user = await adminServiceSchema.blockUser(userId);
           res.status(200).json({
             success: true,
@@ -27,9 +28,9 @@ const blockUser = async (req: Request, res: Response) => {
     
 const blogDelete = async (req: Request, res: Response) => {
      try {
-          const { id } = req.params;
-          const userId = req.user?.id || ""; 
-          await adminServiceSchema.blogDelete(id, userId);
+      
+          const blogId = req.params.id; 
+          await adminServiceSchema.blogDelete(blogId);
       
           res.status(200).json({
             success: true,

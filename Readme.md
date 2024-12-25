@@ -21,10 +21,8 @@ The Blog API is a robust backend solution for managing a blog platform. It suppo
 
 ## Installation
 
-1. Clone the repository:
-   ```bash
-   git clone 
-   ```
+1. Clone the repository:https://github.com/ForidaParven/blog-project.git
+   
 2. Install dependencies:
    ```bash
    npm install

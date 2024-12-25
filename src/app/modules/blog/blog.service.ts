@@ -2,20 +2,39 @@ import mongoose, { ObjectId } from "mongoose";
 import QueryBuilder from "../../builder/QueryBuilder";
 import { IBlog } from "./blog.interface";
 import { Blog } from "./blog.model"
+import { User } from "../user/user.model";
 
-const createBlog = async (payload: IBlog) => {
-    const blog = new Blog(payload);
-    const result = await blog.save();
+const createBlog = async (payload: IBlog, userId : string) => {
+  // const user =await User.findOne({ email}, {_id:1})
+    const blog = new Blog({...payload, author: userId});
+    const result = (await blog.save()).populate({
+      path:"author",
+      select:"_id name email"
+    })
     return result;
 }
 
-const updateBlog = async (id:string, userId: ObjectId, updateData: any, role: string) => {
+const updateBlog = async (id:string, userId: string, updateData: any) => {
 
-    const result = await Blog.findByIdAndUpdate(id, userId, {new: true});
+  const blog = await Blog.findOne({_id:id});
+
+if(!blog){
+  return {success: false, message:" blog not found"}
+}
+if (!blog?.author.equals(userId)) {
+  return {success: false, message: "You are not the author"};
 }
 
-const deleteBlog = async (id: string, userId: ObjectId, role: string) => {
-    return await Blog.findOneAndDelete({id, userId });
+    const result = await Blog.findByIdAndUpdate({_id:id},updateData,{new: true}).populate({
+      path:"author",
+      select:"_id name email",
+    });
+    
+    return {success: true, message: "blog updated successfully", data: result};
+}
+
+const deleteBlog = async (_id: string) => {
+    return await Blog.findOneAndDelete({_id});
 };
 
 

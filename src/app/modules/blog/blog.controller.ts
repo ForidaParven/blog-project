@@ -1,22 +1,39 @@
- import { blogServiceSchema } from "./blog.service";
+
+import { blogServiceSchema } from "./blog.service";
  import { Request, Response } from "express";
+import { User } from "../user/user.model";
+import catchAsync from "../../../utils/catchAsync";
 
 
-const createBlog = async (req: Request, res: Response) => {
+
+ const createBlog =catchAsync(async (req: Request, res: Response) => {
     try {
-        const body = req.body; 
-      const newBlog = await blogServiceSchema.createBlog(body);
+        const body = req.body;
+        const {id, role} = req.user;
+
+        if(role === "admin"){
+          res.status(403).json({
+            success: false,
+            message: "you are not allowed",
+          })
+        }
+
+      const newBlog = await blogServiceSchema.createBlog(body, id)
+      // console.log(newBlog)
       res.status(201).json({
         success: true,
         message: "Blog created successfully",
         data: {
-          _id: newBlog.id,
-          title: newBlog.title,
-          content: newBlog.content,
-          author: newBlog,
-    }
+          _id:newBlog.id,
+          title:newBlog.title,
+          content:newBlog.content,
+          author:newBlog.author,
+        },
+        
       });
     } 
+  
+    
     catch (error: any) {
       res.status(400).json({
         success: false,
@@ -29,10 +46,13 @@ const createBlog = async (req: Request, res: Response) => {
       });
     }
     
-  };
+  });
+ 
 
 
-  const getAllBlogs = async (req: Request, res: Response) => {
+
+
+  const getAllBlogs =catchAsync(async (req: Request, res: Response) => {
     try {
       const query = req.query;
       const blogs = await blogServiceSchema.getAllBlogs(query);
@@ -63,27 +83,25 @@ const createBlog = async (req: Request, res: Response) => {
         stack: process.env.NODE_ENV === "development" ? error.stack : undefined,
       });
     }
-  };
+  });
 
   
-  const updateBlog = async (req: Request, res: Response) => {
+  const updateBlog =catchAsync(async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
       const updateData = req.body;
-      const userId = req.user?.id || ""; 
-      const role = req.user?.role || ""; 
+      const {id: userId, role} = req.user;
+
+      // const userId = req.user?.id || ""; 
+      // const role = req.user?.role || ""; 
       const updatedBlog = await blogServiceSchema.updateBlog(
         id,
         userId,
         updateData,
-        role
+
       );
   
-      res.status(200).json({
-        success: true,
-        message: "Blog updated successfully",
-        data: updatedBlog,
-      });
+      res.status(200).json(updatedBlog);
     }  catch (error: any) {
       res.status(400).json({
         success: false,
@@ -95,15 +113,13 @@ const createBlog = async (req: Request, res: Response) => {
         stack: process.env.NODE_ENV === "development" ? error.stack : undefined,
       });
     }
-  };
+  });
   
 
-  const deleteBlog = async (req: Request, res: Response) => {
+  const deleteBlog =catchAsync( async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
-      const userId = req.user?.id || ""; 
-      const role = req.user?.role || ""; 
-      await blogServiceSchema.deleteBlog(id, userId, role);
+      await blogServiceSchema.deleteBlog(id);
   
       res.status(200).json({
         success: true,
@@ -120,7 +136,7 @@ const createBlog = async (req: Request, res: Response) => {
         stack: process.env.NODE_ENV === "development" ? error.stack : undefined,
       });
     }
-  };
+  });
   
 
   export const blogControllerSchema = 

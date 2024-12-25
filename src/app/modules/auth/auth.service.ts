@@ -18,6 +18,7 @@ import jwt from 'jsonwebtoken'
     throw new Error('This user is not found !')
   }
 
+
   
   //checking if the password is correct
   const isPasswordMatched = await bcrypt.compare(
@@ -33,9 +34,10 @@ import jwt from 'jsonwebtoken'
   const jwtPayload = {
     email: user?.email,
     role: user?.role,
+    id: user?.id,
   }
 
-  const token = jwt.sign(jwtPayload, "secret", { expiresIn: '30d' });
+  const token = jwt.sign(jwtPayload, process.env.JWT_ACCESS_SECRET!, { expiresIn: '30d' });
 
   const verifiedUser = {name: user?.name, email:user?.email, role:user?.role}
 
