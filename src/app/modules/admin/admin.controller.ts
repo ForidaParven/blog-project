@@ -1,55 +1,36 @@
 
+import { StatusCodes } from "http-status-codes";
+import catchAsync from "../../../utils/catchAsync";
+import sendResponse from "../../../utils/sendResponse";
 import { adminServiceSchema } from "./admin.service";
 import { Request, Response } from 'express';
 
 
-const blockUser = async (req: Request, res: Response) => {
-        try {
+const blockUser =catchAsync(async (req: Request, res: Response) => {
             const userId = req.params.id;
             console.log(userId)
            const user = await adminServiceSchema.blockUser(userId);
-          res.status(200).json({
-            success: true,
-            statusCode: 200,
+
+
+           sendResponse(res, {
+            statusCode: StatusCodes.OK,
             message: 'User blocked successfully',
-          });
-        }  catch (error: any) {
-            res.status(400).json({
-              success: false,
-              message: error.message || "An unexpected error occurred.",
-              statusCode: 400,
-              error: {
-                details: error.details || "No additional details available.",
-              },
-              stack: process.env.NODE_ENV === "development" ? error.stack : undefined,
-            });
-          }
-      }
+            data: user,
+          })
+      });
     
-const blogDelete = async (req: Request, res: Response) => {
-     try {
+const blogDelete =catchAsync(async (req: Request, res: Response) => {
       
           const blogId = req.params.id; 
           await adminServiceSchema.blogDelete(blogId);
       
-          res.status(200).json({
-            success: true,
-            message: "Blog deleted successfully",
-            statusCode:200,
-          });
-        }  catch (error: any) {
-          res.status(400).json({
-            success: false,
-            message: error.message || "An unexpected error occurred.",
-            statusCode: 400,
-            error: {
-              details: error.details || "No additional details available.",
-            },
-            stack: process.env.NODE_ENV === "development" ? error.stack : undefined,
-          });
-        }
+          sendResponse(res, {
+            statusCode: StatusCodes.OK,
+            message: 'User deleted successfully',
+            data: {}
+          })
       
-  };
+  });
 
   export const adminController = {
     blockUser,blogDelete,

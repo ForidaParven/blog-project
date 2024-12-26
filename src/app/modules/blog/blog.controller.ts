@@ -1,13 +1,13 @@
 
 import { blogServiceSchema } from "./blog.service";
  import { Request, Response } from "express";
-import { User } from "../user/user.model";
 import catchAsync from "../../../utils/catchAsync";
+import sendResponse from "../../../utils/sendResponse";
+import { StatusCodes } from "http-status-codes";
 
 
 
  const createBlog =catchAsync(async (req: Request, res: Response) => {
-    try {
         const body = req.body;
         const {id, role} = req.user;
 
@@ -19,9 +19,9 @@ import catchAsync from "../../../utils/catchAsync";
         }
 
       const newBlog = await blogServiceSchema.createBlog(body, id)
-      // console.log(newBlog)
-      res.status(201).json({
-        success: true,
+
+    sendResponse(res, {
+      statusCode: StatusCodes.CREATED,
         message: "Blog created successfully",
         data: {
           _id:newBlog.id,
@@ -29,31 +29,11 @@ import catchAsync from "../../../utils/catchAsync";
           content:newBlog.content,
           author:newBlog.author,
         },
-        
-      });
-    } 
-  
-    
-    catch (error: any) {
-      res.status(400).json({
-        success: false,
-        message: error.message || "An unexpected error occurred.",
-        statusCode: 400,
-        error: {
-          details: error.details || "No additional details available.",
-        },
-        stack: process.env.NODE_ENV === "development" ? error.stack : undefined,
-      });
-    }
+    })
     
   });
- 
-
-
-
 
   const getAllBlogs =catchAsync(async (req: Request, res: Response) => {
-    try {
       const query = req.query;
       const blogs = await blogServiceSchema.getAllBlogs(query);
 
@@ -63,37 +43,21 @@ import catchAsync from "../../../utils/catchAsync";
         content: blog.content,
         author: blog, 
       }));
-  
-      res.status(200).json({
-        success: true,
-        message: "Blogs fetched successfully",
-        statusCode:200,
-        data:formattedBlogs
-      });
 
-      
-    } catch (error: any) {
-      res.status(400).json({
-        success: false,
-        message: error.message || "An unexpected error occurred.",
-        statusCode: 400,
-        error: {
-          details: error.details || "No additional details available.",
-        },
-        stack: process.env.NODE_ENV === "development" ? error.stack : undefined,
-      });
-    }
+      sendResponse(res, {
+        statusCode: StatusCodes.OK,
+        message: "Blogs fetched successfully",
+        data:formattedBlogs
+      })
   });
 
   
   const updateBlog =catchAsync(async (req: Request, res: Response) => {
-    try {
+  
       const { id } = req.params;
       const updateData = req.body;
       const {id: userId, role} = req.user;
 
-      // const userId = req.user?.id || ""; 
-      // const role = req.user?.role || ""; 
       const updatedBlog = await blogServiceSchema.updateBlog(
         id,
         userId,
@@ -101,41 +65,24 @@ import catchAsync from "../../../utils/catchAsync";
 
       );
   
-      res.status(200).json(updatedBlog);
-    }  catch (error: any) {
-      res.status(400).json({
-        success: false,
-        message: error.message || "An unexpected error occurred.",
-        statusCode: 400,
-        error: {
-          details: error.details || "No additional details available.",
-        },
-        stack: process.env.NODE_ENV === "development" ? error.stack : undefined,
-      });
-    }
+      sendResponse(res, {
+        statusCode: StatusCodes.OK,
+        message: "Blogs updated successfully",
+        data:updatedBlog
+      })
   });
   
 
   const deleteBlog =catchAsync( async (req: Request, res: Response) => {
-    try {
+  
       const { id } = req.params;
       await blogServiceSchema.deleteBlog(id);
   
-      res.status(200).json({
-        success: true,
-        message: "Blog deleted successfully",
-      });
-    }  catch (error: any) {
-      res.status(400).json({
-        success: false,
-        message: error.message || "An unexpected error occurred.",
-        statusCode: 400,
-        error: {
-          details: error.details || "No additional details available.",
-        },
-        stack: process.env.NODE_ENV === "development" ? error.stack : undefined,
-      });
-    }
+      sendResponse(res, {
+        statusCode: StatusCodes.OK,
+        message: "Blogs deleted successfully",
+        data:{}
+      })
   });
   
 
