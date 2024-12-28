@@ -38,18 +38,28 @@ const deleteBlog = async (_id: string) => {
 };
 
 
-const getAllBlogs = async (query: any) => {
+const getAllBlogs = async (query: Record<string, unknown>) => {
     const searchableFields = ['title', 'content'];
-    const queryBuilder = new QueryBuilder(Blog.find(), query)
-      .search(searchableFields)
-    //  .filter()
-      .sort()
-      .paginate()
-      .fields();
+    const blogs = new QueryBuilder(Blog.find(), query).search(searchableFields).sort().paginate().fields();
+
   
-    const result = await queryBuilder.modelQuery;
+    const result = await blogs.modelQuery;
     return result;
   };
+
+  
+// const getAllBlogs = async (query: any) => {
+//     const searchableFields = ['title', 'content'];
+//     const queryBuilder = new QueryBuilder(Blog.find(), query)
+//       .search(searchableFields)
+//     //  .filter()
+//       .sort()
+//       .paginate()
+//       .fields();
+  
+//     const result = await queryBuilder.modelQuery;
+//     return result;
+//   };
 
 
 

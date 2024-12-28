@@ -31,7 +31,7 @@ filter() {
     const queryObj = { ...this.query };
 
     // Filtering
-    const excludeFields = ['searchTerm', 'sort', 'limit', 'page', 'fields'];
+    const excludeFields = ['searchTerm', 'sort', 'page', 'fields'];
 
     excludeFields.forEach((el) => delete queryObj[el]);
 
