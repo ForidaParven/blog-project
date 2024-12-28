@@ -42,7 +42,7 @@ const getAllBlogs = async (query: any) => {
     const searchableFields = ['title', 'content'];
     const queryBuilder = new QueryBuilder(Blog.find(), query)
       .search(searchableFields)
-    //   .filter()
+    //  .filter()
       .sort()
       .paginate()
       .fields();
