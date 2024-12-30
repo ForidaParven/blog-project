@@ -1,14 +1,15 @@
 import { Router } from "express";
  import { blogControllerSchema } from "./blog.controller";
-import { isAuthenticated } from "../../../middleWare/middleWare";
+import auth from "../../../middleWare/auth";
+import { USER_ROLE } from "../user/user.constant";
 
 
 const router = Router();
 
  router.get("/", blogControllerSchema.getAllBlogs);
- router.post("/",isAuthenticated, blogControllerSchema.createBlog);
- router.delete("/:id",isAuthenticated, blogControllerSchema.deleteBlog);
- router.put("/:id",isAuthenticated, blogControllerSchema.updateBlog);
+ router.post("/",auth(USER_ROLE.admin, USER_ROLE.user), blogControllerSchema.createBlog);
+ router.delete("/:id",auth(USER_ROLE.admin, USER_ROLE.user), blogControllerSchema.deleteBlog);
+ router.put("/:id",auth(USER_ROLE.admin, USER_ROLE.user), blogControllerSchema.updateBlog);
 
 
 
