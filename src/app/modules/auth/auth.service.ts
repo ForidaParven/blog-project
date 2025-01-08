@@ -1,4 +1,5 @@
 
+import AppError from "../../errors/AppError";
 import { IUser } from "../user/user.interface";
 import { User } from "../user/user.model";
 import bcrypt from 'bcrypt'
@@ -15,7 +16,8 @@ import jwt from 'jsonwebtoken'
   const user = await User.findOne({ email: payload?.email }).select('+password');
 
   if (!user) {
-    throw new Error('This user is not found !')
+    // throw new Error('This user is not found !')
+    throw new AppError(401, 'This user is not found!');
   }
 
 
@@ -27,7 +29,8 @@ import jwt from 'jsonwebtoken'
   )
 
   if (!isPasswordMatched) {
-    throw new Error('Wrong Password!!! Tell me who are you? 😈')
+    // throw new Error('Wrong Password!!! Tell me who are you? 😈')
+    throw new AppError(401, 'Invalid credentials. Please try again.');
   }
 
   //create token and sent to the  client
@@ -43,6 +46,9 @@ import jwt from 'jsonwebtoken'
 
   return {token, verifiedUser};
 }
+
+
+
 
 export const authServiceSchema = {
   registerUser,

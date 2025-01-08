@@ -4,7 +4,7 @@ import { blogRouter } from './app/modules/blog/blog.route';
 import { authRouter } from './app/modules/auth/auth.route';
 import userRouter from './app/modules/user/user.route';
 import { adminRouter } from './app/modules/admin/admin.route';
-import errorHandler from './app/errors/errorHandler';
+import globalErrorHandler from './middleWare/globalErrorHandler';
 
 const app = express();
 
@@ -28,7 +28,7 @@ app.get('/error', (req: Request, res: Response, next: NextFunction) => {
 });
 
 
-app.use(errorHandler)
+app.use(globalErrorHandler)
 
 export default app;
 

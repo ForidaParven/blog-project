@@ -21,8 +21,9 @@ import { StatusCodes } from "http-status-codes";
       const newBlog = await blogServiceSchema.createBlog(body, id)
 
     sendResponse(res, {
+      success:true,
+      message: "Blog created successfully",
       statusCode: StatusCodes.CREATED,
-        message: "Blog created successfully",
         data: {
           _id:newBlog.id,
           title:newBlog.title,
@@ -66,9 +67,10 @@ import { StatusCodes } from "http-status-codes";
       );
   
       sendResponse(res, {
+        success:true,
+        message: "Blog updated successfully",
         statusCode: StatusCodes.OK,
-        message: "Blogs updated successfully",
-        data:updatedBlog
+        data:updatedBlog,
       })
   });
   
@@ -79,9 +81,10 @@ import { StatusCodes } from "http-status-codes";
       await blogServiceSchema.deleteBlog(id);
   
       sendResponse(res, {
+        success:true,
         statusCode: StatusCodes.OK,
-        message: "Blogs deleted successfully",
-        data:{}
+        message: "Blog deleted successfully",
+        // data:{}
       })
   });
   

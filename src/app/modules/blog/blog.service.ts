@@ -25,12 +25,18 @@ if (!blog?.author.equals(userId)) {
   return {success: false, message: "You are not the author"};
 }
 
-    const result = await Blog.findByIdAndUpdate({_id:id},updateData,{new: true}).populate({
+    const result = await Blog.findByIdAndUpdate({_id:id},
+      updateData,
+      {new: true})
+      .select("-isPublished -createdAt -updatedAt -__v")
+      .populate({
       path:"author",
       select:"_id name email",
     });
+
     
-    return {success: true, message: "blog updated successfully", data: result};
+
+    return result;
 }
 
 const deleteBlog = async (_id: string) => {

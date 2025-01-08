@@ -68,9 +68,5 @@ This project is licensed under the MIT License.
 # Project Overview Video:https://drive.google.com/file/d/1xq0wmLEX3suQ5zX7i45-AyDPXOFSOv72/view?usp=sharing 
 # Live Deployment Link (Server):https://blog-assignment-liart.vercel.app
 
-Admin Token:
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imh5YnVpLmtpdWhAZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJpZCI6IjY3Njc2ZDI1Y2EzNTdhZTdlYTc1MzY2MCIsImlhdCI6MTczNTU3MTkzMywiZXhwIjoxNzM4MTYzOTMzfQ.1qGJvPeqmJcuWBpqlY0jPzrEdy0VZVy_KhM4SRIl1Kc"
 
-User Token:
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJyb2xlIjoidXNlciIsImlkIjoiNjc3MmJiZGVmYTUxMGM5YmNjMzIxNDQ5IiwiaWF0IjoxNzM1NTcyNDc2LCJleHAiOjE3MzgxNjQ0NzZ9.Dn3BxKQNW32QxoDGyaEvUnl_11iVn7OpsdieQlmpydQ"
 
